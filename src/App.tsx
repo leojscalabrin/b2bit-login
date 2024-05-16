@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import './index.css';
 import Profile from './components/Profile/UserProfile.tsx';
 import Login from './components/Login/LoginForm.tsx';
 
