@@ -6,7 +6,10 @@ module.exports = {
         'main-blue': '#02274F',
         'main-yellow': '#FDCF00',
         'white-bg': '#F1F1F1',
-        'gray': '#999999'
+        'alt-white-bg': '#f1f5f9',
+        'third-white-bg': "#F4F4F4",
+        'gray': '#999999',
+        'main-black': '#262626'
       },
       fontFamily: {
         'open-sans': ['Open Sans', 'sans-serif'],

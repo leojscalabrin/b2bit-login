@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       {isLoggedIn ? (
-        <Profile username="John Doe" email="john@example.com" onLogout={handleLogout} />
+        <Profile username="Bátima" email="herp@derp.com" onLogout={handleLogout} />
       ) : (
         <Login onLoginSuccess={handleLoginSuccess} />
       )}
