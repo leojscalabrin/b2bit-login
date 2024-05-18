@@ -1,10 +1,12 @@
 import React from "react";
 
-const UserProfile: React.FC<{
+interface UserProfileProps {
   username: string;
   email: string;
   onLogout: () => void;
-}> = ({ username, email, onLogout }) => {
+}
+
+const UserProfile: React.FC<UserProfileProps> = ({ username, email, onLogout }) => {
   return (
     <div className="bg-alt-white-bg h-screen">
       <div className="bg-white h-12 px-4 py-1 flex justify-end ">

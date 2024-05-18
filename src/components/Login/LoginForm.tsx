@@ -1,8 +1,28 @@
 import React from "react";
+import { useHistory } from 'react-router-dom';
 
-const LoginForm: React.FC<{
+interface LoginFormProps {
   onLoginSuccess: (email: string, password: string) => void;
-}> = ({ onLoginSuccess }) => {
+}
+
+const handleLogin = async (email: string, password: string) => {
+  try {
+    const response = await axios.post<{ user: any, tokens: any }>('https://api.homologation.cliqdrive.com.br/auth/login/', {
+      email: email,
+      password: password
+    });
+    const { user, tokens } = response.data;
+    handleLoginSuccess();
+    // Redireciona para a rota /profile após o login
+    history.push('/profile');
+  } catch (error) {
+    console.error('Erro ao fazer login:', error);
+  }
+};
+
+const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
+  const history = useHistory();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
