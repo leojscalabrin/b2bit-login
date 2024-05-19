@@ -17,7 +17,6 @@ interface UserProfileProps {
 const UserProfile: React.FC<UserProfileProps> = ({ userProfile, onLogout }) => {
   const { avatar } = userProfile;
 
-  // Verifica se o avatar está disponível e se o URL de alta resolução está definido
   const avatarUrl = avatar?.high ? avatar.high : ""; 
 
   return (

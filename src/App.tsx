@@ -51,7 +51,7 @@ function App() {
               'Content-Type': 'application/json',
             }
           });
-          console.log('User Profile Response:', response.data); // Adicione este log
+          console.log('User Profile Response:', response.data);
           setUserProfile(response.data);
         } catch (error) {
           console.error('Erro ao buscar perfil do usuário:', error);
