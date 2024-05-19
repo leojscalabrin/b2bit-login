@@ -1,24 +1,15 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
 
-interface LoginFormProps {
+const LoginForm: React.FC<{
   onLogin: (email: string, password: string) => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
-  const navigate = useNavigate();
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  errorMessage: string | null;
+}> = ({ onLogin, errorMessage }) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    try {
-      await onLogin(email, password);
-      navigate('/profile');
-    } catch (error) {
-      console.error('Erro ao fazer login:', error);
-    }
+    onLogin(email, password);
   };
 
   return (
@@ -59,12 +50,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               style={{width: "265px"}}
             />
           </div>
+          {errorMessage && <p className="text-red-500 nunito text-sm mb-4">{errorMessage}</p>}
           <button
             type="submit"
             className="bg-main-blue text-white px-8 py-2 rounded-md"
             style={{width: "265px"}}
           >
-            Sign In</button>
+            Sign In
+          </button>
         </form>
       </div>
     </div>

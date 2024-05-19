@@ -20,12 +20,14 @@ function App() {
   });
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem('accessToken'));
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleLoginSuccess = (token: string) => {
     localStorage.setItem('accessToken', token);
     setAccessToken(token);
     setIsLoggedIn(true);
+    setErrorMessage(null);
   };
 
   const handleLogout = () => {
@@ -90,6 +92,7 @@ function App() {
       const { tokens } = response.data;
       handleLoginSuccess(tokens.access);
     } catch (error) {
+      setErrorMessage('Credenciais incorretas. Por favor, tente novamente.');
       console.error('Erro ao fazer login:', error);
     }
   };
@@ -97,7 +100,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={!isLoggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/profile" />} />
+        <Route path="/" element={!isLoggedIn ? <Login onLogin={handleLogin} errorMessage={errorMessage} /> : <Navigate to="/profile" />} />
         <Route path="/profile" element={isLoggedIn && userProfile ? <Profile {...userProfile} onLogout={handleLogout} /> : <Navigate to="/" />} />
       </Routes>
     </div>
