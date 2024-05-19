@@ -14,17 +14,22 @@ interface UserProfile {
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    const token = localStorage.getItem('accessToken');
+    return !!token;
+  });
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem('accessToken'));
   const navigate = useNavigate();
 
   const handleLoginSuccess = (token: string) => {
+    localStorage.setItem('accessToken', token);
     setAccessToken(token);
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('accessToken');
     setIsLoggedIn(false);
     setUserProfile(null);
     setAccessToken(null);
