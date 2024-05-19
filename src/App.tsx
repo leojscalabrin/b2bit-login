@@ -7,9 +7,12 @@ import Login from './components/Login/LoginForm.tsx';
 
 interface UserProfile {
   name: string;
+  last_name: string;
   email: string;
   avatar?: {
-    image_high_url: string;
+    high: string;
+    medium: string;
+    low: string;
   };
 }
 
@@ -48,6 +51,7 @@ function App() {
               'Content-Type': 'application/json',
             }
           });
+          console.log('User Profile Response:', response.data); // Adicione este log
           setUserProfile(response.data);
         } catch (error) {
           console.error('Erro ao buscar perfil do usuário:', error);
@@ -69,6 +73,9 @@ function App() {
   axios.interceptors.request.use(function (config) {
     config.headers['Accept'] = 'application/json;version=v1_web';
     config.headers['Content-Type'] = 'application/json';
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
     return config;
   }, function (error) {
     return Promise.reject(error);
@@ -101,7 +108,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={!isLoggedIn ? <Login onLogin={handleLogin} errorMessage={errorMessage} /> : <Navigate to="/profile" />} />
-        <Route path="/profile" element={isLoggedIn && userProfile ? <Profile {...userProfile} onLogout={handleLogout} /> : <Navigate to="/" />} />
+        <Route path="/profile" element={isLoggedIn && userProfile ? <Profile userProfile={userProfile} onLogout={handleLogout} /> : <Navigate to="/" />} />
       </Routes>
     </div>
   );
