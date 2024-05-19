@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
-import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import './index.css';
 import Profile from './components/Profile/UserProfile.tsx';
 import Login from './components/Login/LoginForm.tsx';
@@ -17,6 +17,19 @@ interface UserProfile {
 }
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/':
+        document.title = "Login";
+        break;
+      case '/profile':
+        document.title = "User Profile";
+        break;
+    }
+  }, [location]);
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     const token = localStorage.getItem('accessToken');
     return !!token;
