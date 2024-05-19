@@ -1,3 +1,8 @@
+Projeto criado para um desafio de processo seletivo Front-End da b2bit
+-instale as dependências com "npm install" ou "yarn install"
+-rode o projeto com "npm start" ou "yarn start"
+-rode os testes e2e com "npx cypress run"
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
