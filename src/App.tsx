@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './index.css';
 import Profile from './components/Profile/UserProfile.tsx';
 import Login from './components/Login/LoginForm.tsx';
@@ -49,15 +49,10 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route path="/login">
-            <Login onLogin={handleLogin} />
-          </Route>
-          <Route path="/profile">
-            <Profile username="Bátima" email="herp@derp.com" onLogout={handleLogout} />
-          </Route>
-          {/* Adicione mais rotas conforme necessário */}
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Login onLogin={handleLogin} />} />
+          <Route path="/profile" element={isLoggedIn ? <Profile username="Bátima" email="herp@derp.com" onLogout={handleLogout} /> : <Navigate to="/login" />} />
+        </Routes>
       </div>
     </Router>
   );

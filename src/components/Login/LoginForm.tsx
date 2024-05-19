@@ -1,34 +1,24 @@
-import React from "react";
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginFormProps {
-  onLoginSuccess: (email: string, password: string) => void;
+  onLogin: (email: string, password: string) => void;
 }
 
-const handleLogin = async (email: string, password: string) => {
-  try {
-    const response = await axios.post<{ user: any, tokens: any }>('https://api.homologation.cliqdrive.com.br/auth/login/', {
-      email: email,
-      password: password
-    });
-    const { user, tokens } = response.data;
-    handleLoginSuccess();
-    // Redireciona para a rota /profile após o login
-    history.push('/profile');
-  } catch (error) {
-    console.error('Erro ao fazer login:', error);
-  }
-};
+const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
+  const navigate = useNavigate();
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
-  const history = useHistory();
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    onLoginSuccess(email, password);
+    try {
+      await onLogin(email, password);
+      navigate('/profile');
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+    }
   };
 
   return (
