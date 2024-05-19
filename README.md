@@ -1,7 +1,7 @@
 Projeto criado para um desafio de processo seletivo Front-End da b2bit
 -instale as dependências com "npm install" ou "yarn install"
 -rode o projeto com "npm start" ou "yarn start"
--rode os testes e2e com "npx cypress run"
+OBS: devido a pouca experiência com testes, os mesmos não foram completamente implementados
 
 # Getting Started with Create React App
 
